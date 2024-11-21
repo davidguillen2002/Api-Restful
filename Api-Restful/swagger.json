@@ -1,0 +1,250 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API Restful de Tareas",
+      "version": "1.0.0",
+      "description": "Documentación de la API para gestionar tareas."
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Servidor local"
+      }
+    ],
+    "paths": {
+      "/tasks": {
+        "get": {
+          "summary": "Listar todas las tareas",
+          "description": "Devuelve una lista de todas las tareas.",
+          "responses": {
+            "200": {
+              "description": "Lista de tareas",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Task"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear una nueva tarea",
+          "description": "Crea una nueva tarea con los datos proporcionados.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Tarea creada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/tasks/{id}": {
+        "get": {
+          "summary": "Obtener una tarea específica",
+          "description": "Devuelve una tarea específica según el ID proporcionado.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la tarea",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tarea encontrada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Tarea no encontrada"
+            }
+          }
+        },
+        "put": {
+          "summary": "Actualizar completamente una tarea",
+          "description": "Actualiza todos los campos de una tarea específica.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la tarea",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Tarea actualizada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Tarea no encontrada"
+            }
+          }
+        },
+        "patch": {
+          "summary": "Actualizar parcialmente una tarea",
+          "description": "Actualiza algunos campos de una tarea específica.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la tarea",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TaskInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Tarea actualizada",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Task"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Tarea no encontrada"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Eliminar una tarea",
+          "description": "Elimina una tarea específica según el ID proporcionado.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID de la tarea",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Tarea eliminada"
+            },
+            "404": {
+              "description": "Tarea no encontrada"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Task": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "example": 1
+            },
+            "title": {
+              "type": "string",
+              "example": "Título de la tarea"
+            },
+            "description": {
+              "type": "string",
+              "example": "Descripción de la tarea"
+            },
+            "status": {
+              "type": "string",
+              "example": "pendiente"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-11-21T12:00:00Z"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2024-11-21T12:30:00Z"
+            }
+          }
+        },
+        "TaskInput": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "example": "Nuevo título de la tarea"
+            },
+            "description": {
+              "type": "string",
+              "example": "Nueva descripción"
+            },
+            "status": {
+              "type": "string",
+              "example": "completada"
+            }
+          }
+        }
+      }
+    }
+  }  
